@@ -3,50 +3,48 @@
 {{ $root := .Scratch.Get "$root" }}
 
 <article class="w-100 w-50-m w-third-l mb4 pb0 ph2 ph2-l">
-  <div class="project-card br3 h-100 flex flex-column overflow-hidden">
+  <a href="{{ .RelPermalink }}" class="link color-inherit db h-100">
+    <div class="project-card br3 h-100 flex flex-column overflow-hidden">
 
-    {{ if $root.Params.show_post_thumbnail }}
-      {{- $images := $page.Resources.ByType "image" -}}
-      {{ $leaf := $images.GetMatch "*feature*" }}
-      {{- $hex := $images.GetMatch "*hex*" -}}
-      {{- $thumbnail := cond (ne $hex nil) $hex $leaf -}}
-      {{ $branch := ($section.Resources.ByType "image").GetMatch "*feature*" }}
-      {{- $thumbnail := cond (ne $thumbnail nil) $thumbnail $branch -}}
-      {{ with $thumbnail }}
-      <div class="aspect-ratio aspect-ratio--16x9">
-        <a href="{{ $page.Permalink }}">
-          <img src="{{ .RelPermalink | absURL }}" alt="" class="aspect-ratio--object">
-        </a>
-      </div>
-      {{ end }}
-    {{ end }}
-
-    <div class="pa3 flex flex-column flex-auto justify-between">
-      <div>
-        <header>
-          <h1 class="f4 mv1 lh-title fw6">
-            <a href="{{ .RelPermalink }}" class="link dim black">{{ .Title | markdownify }}</a>
-          </h1>
-        </header>
-
-        {{ $summary := cond (ne .Params.excerpt nil) .Params.excerpt .Summary }}
-        {{ with $summary }}<p class="f6 lh-copy mt1 mb2">{{ . | plainify | truncate 140 }}</p>{{ end }}
-
-        {{ $tags := .Params.categories | default .Params.tags }}
-        {{ with $tags }}
-        <div class="mt1 mb2">
-          {{ range . }}
-            <a class="f7 fw6 ttu tracked dib pv1 ph2 mr1 mb1 br3 link dim" id="tag">{{ . }}</a>
-          {{ end }}
+      {{ if $root.Params.show_post_thumbnail }}
+        {{- $images := $page.Resources.ByType "image" -}}
+        {{ $leaf := $images.GetMatch "*feature*" }}
+        {{- $hex := $images.GetMatch "*hex*" -}}
+        {{- $thumbnail := cond (ne $hex nil) $hex $leaf -}}
+        {{ $branch := ($section.Resources.ByType "image").GetMatch "*feature*" }}
+        {{- $thumbnail := cond (ne $thumbnail nil) $thumbnail $branch -}}
+        {{ with $thumbnail }}
+        <div class="aspect-ratio aspect-ratio--16x9">
+          <img src="{{ .RelPermalink }}" alt="" class="aspect-ratio--object">
         </div>
         {{ end }}
-      </div>
-
-      {{ if $root.Params.show_post_date }}
-      <footer>
-        <p class="f7 gray mv0 tr">{{ .PublishDate.Format "Jan 2, 2006" }}</p>
-      </footer>
       {{ end }}
+
+      <div class="pa3 flex flex-column flex-auto justify-between">
+        <div>
+          <header>
+            <h1 class="f4 mv1 lh-title fw6">{{ .Title | markdownify }}</h1>
+          </header>
+
+          {{ $summary := cond (ne .Params.excerpt nil) .Params.excerpt .Summary }}
+          {{ with $summary }}<p class="f6 lh-copy mt1 mb2">{{ . | plainify | truncate 140 }}</p>{{ end }}
+
+          {{ $tags := .Params.categories | default .Params.tags }}
+          {{ with $tags }}
+          <div class="mt1 mb2">
+            {{ range . }}
+              <span class="f7 fw6 ttu tracked dib pv1 ph2 mr1 mb1 br3" id="tag">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+
+        {{ if $root.Params.show_post_date }}
+        <footer>
+          <p class="f7 gray mv0 tr">{{ .PublishDate.Format "Jan 2, 2006" }}</p>
+        </footer>
+        {{ end }}
+      </div>
     </div>
-  </div>
+  </a>
 </article>
