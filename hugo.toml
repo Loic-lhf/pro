@@ -97,8 +97,8 @@ enableEmoji = true
     
 [params]
   description = ""
-  favicon = "/img/oddish.ico"
-  logo = "/img/oddish-color.png"
+  favicon = "img/oddish.ico"
+  logo = "img/oddish-color.png"
   mainSections = ["blog", "project"]
   navallcaps = true
   # show/hide social icons in site header & footer
