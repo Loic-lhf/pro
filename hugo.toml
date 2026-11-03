@@ -8,6 +8,7 @@ metaDataFormat = "yaml"
 footnoteReturnLinkContents = "&#8617;" # ↩
 # set deliberately low for testing choose your preffered number based on the blog layout you've chosen
 
+canonifyURLs = true
 defaultContentLanguage = "fr"
 defaultContentLanguageInSubdir = true
 [languages]
