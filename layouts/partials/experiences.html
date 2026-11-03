@@ -1,0 +1,52 @@
+{{ with .Params.experiences }}
+<section class="experiences-section pa4 mw8 center">
+  <h2 id="experiences" class="f2 fw5 tc mb4">Experiences
+    <a href="#experiences">
+      <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0h24v24H0z" fill="currentColor"></path>
+        <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+      </svg>
+    </a>
+  </h2>
+  <div class="exp-timeline relative">
+    {{ range $index, $exp := . }}
+    <div class="exp-row flex items-start mb4">
+
+      <div class="exp-node tc mr3">
+        <div class="exp-dot">{{ add $index 1 }}</div>
+      </div>
+
+      <div class="exp-card flex-auto pa3 ba bw1 br3 b--transparent shadow-1">
+        <div class="flex items-center mb2">
+          {{ with $exp.company.logo }}
+            {{ $logo := resources.Get . }}
+            {{ if $logo }}<img src="{{ $logo.RelPermalink }}" alt="{{ $exp.company.name }}" class="company-logo mr2" />{{ end }}
+          {{ end }}
+          <div>
+            <h3 class="f4 mv0">
+              {{ if $exp.company.url }}<a href="{{ $exp.company.url }}" class="link" target="_blank" rel="noopener">{{ $exp.company.name }}</a>{{ else }}{{ $exp.company.name }}{{ end }}
+            </h3>
+            {{ with $exp.company.location }}<p class="f6 gray mv1"><i class="fa-solid fa-location-dot"></i> {{ . }}</p>{{ end }}
+          </div>
+        </div>
+        {{ with $exp.company.overview }}<p class="f6">{{ . | markdownify }}</p>{{ end }}
+
+        {{ range $exp.positions }}
+        <div class="position mt3 pt2 bt bw1 b--light-gray">
+          <div class="flex justify-between items-baseline">
+            <h4 class="f5 fw6 mv0">{{ .designation }}</h4>
+            <span class="f6 gray">{{ .start }} - {{ if .end }}{{ .end }}{{ else }}Present{{ end }}</span>
+          </div>
+          {{ with .responsibilities }}
+          <ul class="f6 pl3 mt2">
+            {{ range . }}<li>{{ . | markdownify }}</li>{{ end }}
+          </ul>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

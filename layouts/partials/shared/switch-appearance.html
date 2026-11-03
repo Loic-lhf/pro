@@ -1,0 +1,32 @@
+{{ $lightStyles := resources.Get "scaffold-light.scss" | resources.ExecuteAsTemplate "style.light.scss" . | toCSS | minify | fingerprint }}
+{{ $darkStyles  := resources.Get "scaffold-dark.scss"  | resources.ExecuteAsTemplate "style.dark.scss"  . | toCSS | minify | fingerprint }}
+<link id="theme-light-css" rel="stylesheet" href="{{ $lightStyles.RelPermalink }}" integrity="{{ $lightStyles.Data.Integrity }}" media="screen">
+<link id="theme-dark-css"  rel="stylesheet" href="{{ $darkStyles.RelPermalink }}"  integrity="{{ $darkStyles.Data.Integrity }}"  media="screen">
+
+<script>
+    (function () {
+        function apply(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('theme-light-css').disabled = (theme === 'dark');
+            document.getElementById('theme-dark-css').disabled  = (theme !== 'dark');
+
+            const icon = document.getElementById('apearance-icon');
+            if (icon) {
+                icon.classList.toggle('fa-moon', theme === 'light');
+                icon.classList.toggle('fa-sun', theme === 'dark');
+            }
+        }
+
+        window.__theme = localStorage.getItem('theme') || 'dark';
+
+        apply(window.__theme);
+
+        window.toggleTheme = function () {
+            window.__theme = window.__theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', window.__theme);
+            apply(window.__theme);
+        };
+    })();
+</script>
+
+<button onclick="toggleTheme()" aria-label="Toggle dark mode" class="apearance-switch link f6 f5-l dib pv1 ph2 bg-transparent bn pointer"><i id="apearance-icon" class="fa-solid fa-moon"></i></button>

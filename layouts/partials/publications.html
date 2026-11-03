@@ -1,0 +1,33 @@
+<section class="publications-page pa4 mw8 center">
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.description }}<p class="publications-intro">{{ . }}</p>{{ end }}
+
+  {{ range .Params.publication_sections }}
+    <div class="publication-section mb5">
+      <h2 class="publication-section__name ttu f3 pb2">{{ .name }}</h2>
+
+      {{ range (sort .publications "date" "desc") }}
+        <article class="publication-item flex justify-between content-start pa0 pt1 mt3">
+          <div class="publication-main">
+            <h3 class="publication-title ma0 f4 fw4">
+              <a href="https://doi.org/{{ .doi }}" target="_blank" rel="noopener" class="no-underline">{{ .title }}</a>
+            </h3>
+
+            {{ if .tags }}
+            <div class="publication-tags mt1 mb1">
+              {{ range .tags }}<span class="publication-tag fw6 ttu tracked dib pv1 ph2 mr1 mb1 br3 link dim">{{ . }}</span>{{ end }}
+            </div>
+            {{ end }}
+          </div>
+
+          <div class="publication-meta tl f7">
+            <a href="https://doi.org/{{ .doi }}" target="_blank" rel="noopener" class="no-underline db">
+              <span class="publication-date db mb2">{{ dateFormat  "2006-01-02" .date }} - {{ .journal }}</span>
+              {{ if .authors }}<span class="publication-authors db">{{ delimit .authors ", " }}</span>{{ end }}
+            </a>
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  {{ end }}
+</section>

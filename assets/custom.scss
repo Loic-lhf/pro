@@ -1,0 +1,302 @@
+// Added elements that need styling
+.lang-switch-toggle,
+.apearance-switch {
+  @extend a, .#{$textFontFamily};
+}
+
+.lang-switch-menu {
+  background-color: #{$siteBgColorCustom};
+  box-shadow: 0px 2px 1px 0 #{$navLinkColorCustom};
+}
+
+abbr:hover {
+  color: #{$textColorCustom};
+}
+
+// handle underline in header links
+.link {
+  font-weight: 400;
+}
+
+.link:hover {
+  color: #{$textColorCustom};
+}
+
+.site-links a:before {
+  transition: all 0s;
+}
+
+.site-links a:hover:after,
+.site-links a.active:after {
+  width: 0%;
+}
+
+svg.anchor-symbol {
+  display: none;
+}
+
+// Home page
+.grid-container.custom-home.home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-main {
+    flex: 1 0 auto;           // grow to fill available space, pushing footer down
+    display: flex;
+    align-items: center;      // vertical centering
+    justify-content: center;  // horizontal centering
+    padding-right: 15%;
+
+    p {
+      font-size: 1rem;
+    }
+
+    img {
+      width: 60%;
+    }
+  }
+
+  @media (max-width: 60em) {
+    .page-main {
+      padding-right: 0; // the 15% offset was meant for the desktop side-by-side layout
+    }
+
+    // go one level deeper: .page-content > [row wrapper] > div:first-child / :last-child
+    .page-content .paragraph {
+      text-align: center;
+    }
+
+    .page-content .image {
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+.site-footer {
+  flex-shrink: 0;            // footer keeps its natural height, stays at bottom
+}
+
+
+// custom page
+.grid-container.custom-page {
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 100;
+  }
+
+  .text p {
+    font-size: 1.2rem;
+    text-align: justify;
+  }
+
+  @media (max-width: 60em) {
+    .page-content .text p {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Shared timeline pattern (experience + education)
+@mixin timeline-line {
+  &::before {
+    content: "";
+    position: absolute;
+    left: 1.7rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: #{$textColorCustom};
+    opacity: 0.25;
+  }
+}
+
+@mixin timeline-dot($label-size: 1rem, $label-weight: 400) {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  background: #{$siteBgColorCustom};
+  border: 2px solid #{$textColorCustom};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $label-size;
+  font-weight: $label-weight;
+  position: relative;
+  z-index: 1;
+}
+
+.exp-timeline,
+.edu-timeline {
+  @include timeline-line;
+}
+
+.exp-row,
+.edu-row {
+  position: relative;
+}
+
+.exp-card,
+.edu-card {
+  background: #{$buttonBgColorCustom};
+}
+
+.exp-dot {
+  @include timeline-dot($label-weight: 700);
+}
+
+.edu-dot {
+  @include timeline-dot($label-size: 1.2rem);
+}
+
+.company-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+@media (min-width: 60em) {
+  .timeline::before {
+    display: block;
+  }
+}
+
+.edu-card button {
+  color: #{$textColorCustom};
+}
+
+// Fix header wrapping on narrow screens
+.exp-card .flex.items-center.mb2,
+.position .flex.justify-between.items-baseline {
+  flex-wrap: wrap;
+  row-gap: 0.25rem;
+}
+
+.position .flex.justify-between.items-baseline span.gray {
+  font-size: 0.85rem; // date shrinks slightly so it doesn't dominate when wrapped
+}
+
+@media (max-width: 60em) {
+  // tighten up the timeline node/dot so it doesn't eat card width
+  .experiences-section {
+    padding-left: 0.5rem;
+    padding-right: 1rem;
+  }
+
+  .education-section {
+    padding-left: 0.5rem;
+    padding-right: 1rem;
+  }
+}
+
+
+// Project cards
+.project-card {
+  background: #{$buttonBgColorCustom};
+  cursor: pointer;
+  transition: filter 0.15s ease-in-out;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
+  &:hover:not(:has(#tag:hover)) {
+    filter: opacity(50%);
+  }
+}
+
+.aspect-ratio {
+  background-color: white;
+}
+
+// Shared "pill tag" pattern (project + publication)
+@mixin pill-tag($font-size: 0.6rem) {
+  border: 1px solid #{$navLinkColorCustom};
+  color: #{$navLinkColorCustom};
+  font-size: $font-size;
+}
+
+.project-card #tag,
+.publication-tag {
+  @include pill-tag;
+}
+
+// project page
+.post-content img {
+  background: white;
+  object-fit: cover;
+  width: 360px;
+}
+
+@media (max-width: 60em) {
+  .post-content img {
+    background: white;
+    object-fit: cover;
+  }
+}
+
+// publications
+.publication-section h2 {
+  border-bottom: 3px solid #{$borderColorCustom};
+  color: #{$headingColorCustom};
+}
+
+.publication-title a {
+  color: #{$headlineColorCustom} !important;
+  font-size: 1.33rem;
+}
+
+.publication-meta {
+  flex: 0 0 auto;
+  white-space: normal;
+  width: 260px;
+}
+
+.publication-date {
+  color: #{$textColorCustom};
+}
+
+.publication-item {
+  gap: 2rem;
+  border-bottom: 1px solid #{$borderColorCustom};
+
+  @media (max-width: 60em) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+
+    // dissolve the wrapper so title & tags become direct flex items
+    .publication-main {
+      display: contents;
+    }
+
+    .publication-title {
+      order: 1;
+    }
+
+    .publication-meta {
+      order: 2;
+      width: auto;      // override the 260px fixed width from desktop
+    }
+
+    .publication-tags {
+      order: 3;
+    }
+  }
+}
+
+.aspect-ratio--object {
+  object-fit: contain;      // shrink to fit inside the box, keep full image visible, no distortion
+  object-position: center;  // center it within the box (this is centering along both axes)
+}

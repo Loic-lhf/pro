@@ -1,0 +1,73 @@
+{{ with .Params.education }}
+<section class="education-section pa4 mw8 center">
+  <h2 id="Eduction" class="f2 fw5 tc mb4">Education
+    <a href="#education">
+      <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0h24v24H0z" fill="currentColor"></path>
+        <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+      </svg>
+    </a>
+  </h2>
+  <div class="edu-timeline relative">
+    {{ range $index, $edu := . }}
+    <div class="edu-row flex items-start mb4">
+
+      <div class="edu-node tc mr3">
+        <div class="edu-dot">
+          <i class="{{ $edu.icon_style | default "fa-solid" }} {{ $edu.icon | default "fa-graduation-cap" }}"></i>
+        </div>
+      </div>
+
+      <div class="edu-card flex-auto pa3 ba bw1 br3 b--transparent shadow-1">
+        <div class="flex justify-between items-baseline flex-wrap">
+          <h3 class="f4 mv0">
+            {{ if $edu.institution.url }}<a href="{{ $edu.institution.url }}" class="link" target="_blank" rel="noopener">{{ $edu.institution.name }}</a>{{ else }}{{ $edu.institution.name }}{{ end }}
+          </h3>
+          <span class="f6 gray">{{ $edu.timeframe }}</span>
+        </div>
+        {{ with $edu.location }}<p class="f6 gray mt1"><i class="fa-solid fa-location-dot"></i> {{ . }}</p>{{ end }}
+        <p class="f5 fw6 mv0">{{ $edu.degree }}</p>
+
+        {{ with $edu.grade }}
+        <p class="f6 mv1"><span class="fw6">{{ .scale }}:</span> {{ .achieved }}{{ with .outOf }} out of {{ . }}{{ end }}</p>
+        {{ end }}
+
+        {{ with $edu.publications }}
+        <div class="mt2">
+          <p class="f6 fw6 mv1">Publications:</p>
+          <ul class="f6 pl3 mv0">
+            {{ range . }}<li>{{ if .url }}<a href="{{ .url }}" class="link" target="_blank" rel="noopener">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</li>{{ end }}
+          </ul>
+        </div>
+        {{ end }}
+
+        {{ with $edu.takenCourses }}
+        {{ $collapseAfter := .collapseAfter | default 3 }}
+        <div class="mt2 taken-courses">
+          <ul class="f6 pl3 mv0">
+            {{ range $i, $c := .courses }}
+            <li class="{{ if ge $i $collapseAfter }}hidden-course dn{{ end }}">{{ $c.name }}</li>
+            {{ end }}
+          </ul>
+          {{ if gt (len .courses) $collapseAfter }}
+          <button type="button" class="btn-link f6 pointer bn bg-transparent underline pa0 mt1" onclick="
+            this.parentElement.querySelectorAll('.hidden-course').forEach(el => el.classList.toggle('dn'));
+            this.textContent = this.textContent === 'Show more' ? 'Show less' : 'Show more';">Show more</button>
+          {{ end }}
+        </div>
+        {{ end }}
+
+        {{ with $edu.extracurricularActivities }}
+        <div class="mt2">
+          <p class="f6 fw6 mv1">Extracurricular:</p>
+          <ul class="f6 pl3 mv0">
+            {{ range . }}<li>{{ . | markdownify }}</li>{{ end }}
+          </ul>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

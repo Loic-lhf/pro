@@ -1,0 +1,26 @@
+// set custom hex colors
+$siteBgColorCustom: #1A1F1C;
+$sidebarBgColorCustom: #12100A ;
+$textColorCustom: #E8ECE9;
+$sidebarTextColorCustom: #D6E0D9;
+
+$headlineColorCustom: #A8CAB8;
+$headingColorCustom: #7FB89A;
+
+$bodyLinkColorCustom: #7FB89A;
+$navLinkColorCustom: #6FAE8D;
+$sidebarLinkColorCustom: #6FAE8D;
+
+$footerTextColorCustom: #8FBFA6;
+
+$buttonTextColorCustom: #12100A;
+$buttonHoverTextColorCustom: #12100A;
+$buttonBgColorCustom: #272a29;
+$buttonHoverBgColorCustom: #7FBC9C;
+$borderColorCustom: #313533;
+
+
+// Added elements that need stling
+.lang-switch-toggle {
+  @extend a
+}
