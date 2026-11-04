@@ -1,12 +1,15 @@
 ---
-title: Mes projets
+title: Mes projets académiques
 description: ""
 author: ""
 show_post_thumbnail: true
 show_author_byline: true
 show_post_date: true
 show_button_links: false
-# for listing page layout
+show_action_link: true
+action_link: https://loic-lhf.github.io/perso/projets/
+action_label: "Voir mes projets persos &rarr;"
+action_type: text # text, button
 layout: list-grid-custom # list, list-sidebar, list-grid
 
 # set up common front matter for all individual pages inside project/

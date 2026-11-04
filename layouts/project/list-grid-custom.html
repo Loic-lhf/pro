@@ -13,5 +13,15 @@
           {{ partial "shared/summary-grid-custom" . }}
         {{ end }}
   </section>
+  {{ if .Params.show_action_link }}
+    <section class="mw8 center tc mt4 mb5">
+      {{ $link := .Params.action_link | relLangURL }}
+      {{ if eq .Params.action_type "button" }}
+        <a class="f6 link dim br1 ph3 pv2 dib white bg-black" href="{{ $link }}">{{ .Params.action_label | safeHTML }}</a>
+      {{ else }}
+        <a class="f6 f5-ns link dim dib" href="{{ $link }}">{{ .Params.action_label | safeHTML }}</a>
+      {{ end }}
+    </section>
+  {{ end }}
 </main>
 {{ end }}
